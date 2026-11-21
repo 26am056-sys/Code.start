@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CodeStart – Learn to code for free</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F5FA; --surface:#FFFFFF; --ink:#10243E; --muted:#4E607A; --line:#D5DEEA;
+  --accent:#2F5BFF; --accent-ink:#FFFFFF; --hi:#FFD23F; --ok:#14804F;
+  --ed:#0E1B2E; --ed-ink:#E6EEF9;
+  --sans:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1524; --surface:#13223A; --ink:#E8EFFA; --muted:#9FB0C8; --line:#25395A;
+    --accent:#6C8CFF; --accent-ink:#0B1524; --hi:#FFD23F; --ok:#4CD39A; --ed:#08101D; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1524; --surface:#13223A; --ink:#E8EFFA; --muted:#9FB0C8; --line:#25395A;
+  --accent:#6C8CFF; --accent-ink:#0B1524; --hi:#FFD23F; --ok:#4CD39A; --ed:#08101D; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.logo span{background:var(--hi);color:#10243E;padding:0 6px;border-radius:4px;margin-right:2px}
+nav a{margin-left:20px;text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--ink)}
+.hero{padding:28px 0 26px;max-width:760px}
+.hero h1{font-size:clamp(36px,6.2vw,66px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:0 0 16px}
+.hero p{font-size:19px;color:var(--muted);margin:0;max-width:56ch}
+.lab{display:grid;grid-template-columns:300px 1fr;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.side{border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:14px}
+.tabs{display:flex;gap:6px}
+.tabs button{flex:1;font:600 14px var(--sans);padding:9px 6px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lessons{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lessons button{width:100%;text-align:left;font:500 15px var(--sans);padding:10px 12px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+.lessons button[aria-current="true"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.lessons .tick{color:var(--ok);font-weight:700}
+.prog{font-size:14px;color:var(--muted);margin-top:auto}
+.bar{height:6px;background:var(--line);border-radius:3px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .4s}
+.main{display:flex;flex-direction:column;min-width:0}
+.brief{padding:16px 20px;border-bottom:1px solid var(--line)}
+.brief h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
+.brief p{margin:0;color:var(--muted)}
+.work{display:grid;grid-template-columns:1fr 1fr;min-height:360px}
+.work>*{min-width:0}
+textarea{width:100%;height:100%;min-height:360px;resize:none;border:0;background:var(--ed);color:var(--ed-ink);font:400 14.5px/1.6 var(--mono);padding:16px;tab-size:2;white-space:pre}
+iframe{width:100%;height:100%;min-height:360px;border:0;background:#fff;display:block}
+.actions{display:flex;align-items:center;gap:12px;padding:12px 20px;border-top:1px solid var(--line);flex-wrap:wrap}
+.btn{font:700 15px var(--sans);padding:10px 18px;border-radius:8px;border:0;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+#msg{font-weight:600}
+#msg.ok{color:var(--ok)} #msg.no{color:var(--muted)}
+section.block{padding:64px 0 8px}
+section.block h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.03em;margin:0 0 8px}
+section.block>.wrap>p{color:var(--muted);margin:0 0 24px;max-width:60ch}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.res a{display:block;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface);text-decoration:none;color:var(--ink)}
+.res a:hover{border-color:var(--accent)}
+.res b{display:block;font-size:18px;margin-bottom:4px}
+.res span{color:var(--muted);font-size:15px}
+.path{display:grid;gap:0;max-width:640px;border-left:3px solid var(--accent);margin-left:6px}
+.path div{padding:0 0 18px 18px}
+.path b{display:block}
+.path span{color:var(--muted)}
+footer{padding:48px 0 40px;color:var(--muted);font-size:15px}
+@media (max-width:860px){
+  .lab{grid-template-columns:1fr}
+  .side{border-right:0;border-bottom:1px solid var(--line)}
+  .work{grid-template-columns:1fr}
+  textarea,iframe{min-height:260px}
+  nav a:not(:last-child){display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#"><span>Code</span>Start</a>
+    <nav><a href="#lab">Lessons</a><a href="#path">Roadmap</a><a href="#free">Free resources</a></nav>
+  </header>
+
+  <div class="hero">
+    <h1>Learn to code. Free, right in your browser.</h1>
+    <p>Pick a lesson, edit the code, and see the result instantly. No sign-up, no install, no payment.</p>
+  </div>
+
+  <div class="lab" id="lab">
+    <aside class="side">
+      <div class="tabs" role="tablist" aria-label="Tracks" id="tabs"></div>
+      <ul class="lessons" id="list"></ul>
+      <div class="prog"><span id="ptxt">0 of 9 lessons done</span><div class="bar"><i id="pbar"></i></div></div>
+    </aside>
+    <div class="main">
+      <div class="brief"><h2 id="ltitle"></h2><p id="ltask"></p></div>
+      <div class="work">
+        <textarea id="code" spellcheck="false" aria-label="Code editor"></textarea>
+        <iframe id="out" title="Result" sandbox="allow-scripts"></iframe>
+      </div>
+      <div class="actions">
+        <button class="btn" id="run">Run code</button>
+        <button class="btn alt" id="check">Check my answer</button>
+        <button class="btn alt" id="reset">Reset</button>
+        <span id="msg" role="status"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="block" id="path">
+  <div class="wrap">
+    <h2>A simple roadmap</h2>
+    <p>Do these in order. Each step builds on the one before.</p>
+    <div class="path">
+      <div><b>HTML</b><span>Build the structure of a page: headings, links, lists.</span></div>
+      <div><b>CSS</b><span>Style it: colors, spacing, layout.</span></div>
+      <div><b>JavaScript</b><span>Make it react to clicks and data.</span></div>
+      <div><b>A small project</b><span>Build a to-do list or a quiz, then put it online.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="free">
+  <div class="wrap">
+    <h2>Keep going with free courses</h2>
+    <p>When you finish the lessons above, these sites are free and well respected.</p>
+    <div class="res">
+      <a href="https://www.freecodecamp.org" target="_blank" rel="noopener"><b>freeCodeCamp</b><span>Full curriculum with projects and certificates.</span></a>
+      <a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener"><b>MDN Learn Web Development</b><span>Clear, accurate guides from the makers of Firefox.</span></a>
+      <a href="https://www.theodinproject.com" target="_blank" rel="noopener"><b>The Odin Project</b><span>A project-based path to full-stack development.</span></a>
+      <a href="https://cs50.harvard.edu/x" target="_blank" rel="noopener"><b>Harvard CS50</b><span>Free university-level intro to computer science.</span></a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">CodeStart is free to use. Your progress is saved only in this browser.</div></footer>
+
+<script>
+var S='<\/script>';
+var LESSONS={
+HTML:[
+ {t:'Your first heading',k:'Add an <h1> heading that says anything you like.',c:'<!-- Write your heading below -->\n',ok:function(c){return /<h1[^>]*>\s*\S[\s\S]*<\/h1>/i.test(c)}},
+ {t:'Add a link',k:'Create a link with <a href="https://example.com"> and give it visible text.',c:'<h1>My page</h1>\n<!-- Add a link below -->\n',ok:function(c){return /<a\s[^>]*href=["'][^"']+["'][^>]*>\s*\S/i.test(c)}},
+ {t:'Make a list',k:'Build a <ul> list with at least three <li> items.',c:'<h1>Favorites</h1>\n<!-- Add your list below -->\n',ok:function(c){return /<ul[\s>]/i.test(c)&&(c.match(/<li[\s>]/gi)||[]).length>=3}}
+],
+CSS:[
+ {t:'Color the heading',k:'Inside the h1 rule, set a color. Try color: crimson;',c:'<h1>Hello, world</h1>\n<style>\n  h1 {\n    /* set the color here */\n  }\n</style>',ok:function(c){return /h1\s*\{[^}]*\bcolor\s*:\s*[^;}\s]/i.test(c)}},
+ {t:'Center the text',k:'Center the heading with text-align: center;',c:'<h1>Hello, world</h1>\n<style>\n  h1 {\n    /* center it */\n  }\n</style>',ok:function(c){return /text-align\s*:\s*center/i.test(c)}},
+ {t:'Change the background',k:'Give the body a background-color.',c:'<h1>Hello, world</h1>\n<style>\n  body {\n    /* add a background */\n  }\n</style>',ok:function(c){return /body\s*\{[^}]*background(-color)?\s*:\s*[^;}\s]/i.test(c)}}
+],
+JavaScript:[
+ {t:'Change text with code',k:'Select #out and set its textContent to a message.',c:'<p id="out">Waiting…</p>\n<script>\n  // change the text of #out\n'+S,ok:function(c){return /(getElementById|querySelector)\s*\(/.test(c)&&/(textContent|innerText|innerHTML)\s*=/.test(c)}},
+ {t:'React to a click',k:'Use addEventListener("click", …) so the button changes the text.',c:'<button id="btn">Click me</button>\n<p id="out"></p>\n<script>\n  // when #btn is clicked, write something into #out\n'+S,ok:function(c){return /addEventListener\s*\(\s*["']click["']/.test(c)&&/(textContent|innerText|innerHTML)\s*=/.test(c)}},
+ {t:'Repeat with a loop',k:'Use a for loop to add the numbers 1 to 5 into #out.',c:'<p id="out"></p>\n<script>\n  var text = "";\n  // loop from 1 to 5 and add each number to text\n  document.getElementById("out").textContent = text;\n'+S,ok:function(c){return /for\s*\(/.test(c)&&/(\+=|push)/.test(c)}}
+]};
+var tracks=Object.keys(LESSONS),cur={tr:tracks[0],i:0},done={};
+var $=function(i){return document.getElementById(i)};
+try{done=JSON.parse(localStorage.getItem('cs-done')||'{}')}catch(e){done={}}
+function save(){try{localStorage.setItem('cs-done',JSON.stringify(done))}catch(e){}}
+function total(){return tracks.reduce(function(n,t){return n+LESSONS[t].length},0)}
+function key(tr,i){return tr+':'+i}
+function progress(){var n=Object.keys(done).length,t=total();$('ptxt').textContent=n+' of '+t+' lessons done';$('pbar').style.width=(n/t*100)+'%'}
+function renderTabs(){
+  $('tabs').innerHTML='';
+  tracks.forEach(function(t){
+    var b=document.createElement('button');b.textContent=t;b.setAttribute('role','tab');
+    b.setAttribute('aria-selected',t===cur.tr);
+    b.onclick=function(){load(t,0)};$('tabs').appendChild(b);
+  });
+}
+function renderList(){
+  $('list').innerHTML='';
+  LESSONS[cur.tr].forEach(function(l,i){
+    var li=document.createElement('li'),b=document.createElement('button');
+    b.innerHTML='<span></span><span class="tick">'+(done[key(cur.tr,i)]?'✓':'')+'</span>';
+    b.firstChild.textContent=l.t;
+    if(i===cur.i)b.setAttribute('aria-current','true');
+    b.onclick=function(){load(cur.tr,i)};li.appendChild(b);$('list').appendChild(li);
+  });
+}
+function run(){$('out').srcdoc=$('code').value}
+function say(t,c){var m=$('msg');m.textContent=t;m.className=c||''}
+function load(tr,i){
+  cur={tr:tr,i:i};var l=LESSONS[tr][i];
+  $('ltitle').textContent=l.t;$('ltask').textContent=l.k;$('code').value=l.c;
+  say('');renderTabs();renderList();progress();run();
+}
+$('run').onclick=function(){run();say('')};
+$('reset').onclick=function(){load(cur.tr,cur.i)};
+$('check').onclick=function(){
+  var l=LESSONS[cur.tr][cur.i];run();
+  if(l.ok($('code').value)){
+    done[key(cur.tr,cur.i)]=1;save();renderList();progress();
+    var last=cur.i===LESSONS[cur.tr].length-1;
+    say(last?'Correct! Track complete.':'Correct! Open the next lesson.','ok');
+  }else say('Not yet. Re-read the task and try again.','no');
+};
+$('code').addEventListener('keydown',function(e){
+  if(e.key==='Tab'){e.preventDefault();var t=this,s=t.selectionStart;t.value=t.value.slice(0,s)+'  '+t.value.slice(t.selectionEnd);t.selectionStart=t.selectionEnd=s+2}
+});
+$('code').addEventListener('input',function(){clearTimeout(window._t);window._t=setTimeout(run,500)});
+load(tracks[0],0);
+</script>
+</body>
+</html>
