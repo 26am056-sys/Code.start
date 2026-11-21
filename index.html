@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeFree — Free Coding Lessons for Students</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background-color: #f4f7fb;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #0f172a;
+      color: #ffffff;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    header p {
+      margin: 8px auto 0;
+      max-width: 620px;
+      color: #cbd5e1;
+    }
+    .container {
+      max-width: 900px;
+      margin: 28px auto;
+      padding: 0 18px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    }
+    .lesson-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    button {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    button.secondary {
+      background-color: #334155;
+    }
+    button.secondary:hover {
+      background-color: #1e293b;
+    }
+    .playground {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 210px;
+      padding: 12px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #0f172a;
+      color: #e2e8f0;
+      resize: vertical;
+    }
+    iframe {
+      width: 100%;
+      min-height: 210px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+    .pledge {
+      border-left: 4px solid #16a34a;
+      background-color: #f0fdf4;
+      padding: 14px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px 16px 40px;
+      color: #64748b;
+      font-size: 14px;
+    }
+    @media (max-width: 720px) {
+      .playground {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>CodeFree for Students</h1>
+    <p>Learn web development step by step—100% free, ad-free, and built for beginners.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Choose a Starter Lesson</h2>
+      <div class="lesson-buttons">
+        <button onclick="loadLesson(1)">Lesson 1: Headings &amp; Text</button>
+        <button onclick="loadLesson(2)">Lesson 2: Lists &amp; Links</button>
+        <button onclick="loadLesson(3)">Lesson 3: Buttons &amp; Cards</button>
+      </div>
+      <div id="lesson-note">
+        <p><strong>Lesson 1 — Headings &amp; Text:</strong> Every page uses <code>&lt;h1&gt;</code> for the main title and <code>&lt;p&gt;</code> for paragraphs. Edit the code on the left and click <strong>Run Code</strong> to see your changes live.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Live HTML Practice Box</h2>
+      <button onclick="runCode()">Run Code</button>
+      <button class="secondary" onclick="resetCode()">Reset Example</button>
+
+      <div class="playground">
+        <div>
+          <label for="code-editor"><strong>HTML Code</strong></label>
+          <textarea id="code-editor" aria-label="HTML Code Editor">
+<h2>Hello, Student!</h2>
+<p>I am building my own free learning website.</p>
+<p>Small steps every day build real skills.</p></textarea>
+        </div>
+
+        <div>
+          <label><strong>Live Preview</strong></label>
+          <iframe id="preview-frame" sandbox="allow-scripts" title="Live HTML Preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Our Student-First Promise</h2>
+      <div class="pledge">
+        <strong>Ethical &amp; Free Access:</strong> No hidden paywalls mid-lesson, no dark patterns, and no unnecessary personal data collection. Students can practice right away in their browser.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built by a student for students • Save this file as <code>index.html</code> and open it in any browser.
+  </footer>
+
+  <script>
+    const lessons = {
+      1: {
+        note: "<p><strong>Lesson 1 — Headings &amp; Text:</strong> Every page uses <code>&lt;h1&gt;</code> for the main title and <code>&lt;p&gt;</code> for paragraphs. Edit the code on the left and click <strong>Run Code</strong> to see your changes live.</p>",
+        code: "<h2>Hello, Student!</h2>\n<p>I am building my own free learning website.</p>\n<p>Small steps every day build real skills.</p>"
+      },
+      2: {
+        note: "<p><strong>Lesson 2 — Lists &amp; Links:</strong> Use <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> for bullet points, and <code>&lt;a href=\"...\"&gt;</code> to link to helpful resources.</p>",
+        code: "<h3>My Study Checklist</h3>\n<ul>\n  <li>Understand HTML tags</li>\n  <li>Practice daily for 20 minutes</li>\n  <li>Build a mini project</li>\n</ul>\n<a href=\"https://developer.mozilla.org\" target=\"_blank\">MDN Web Docs</a>"
+      },
+      3: {
+        note: "<p><strong>Lesson 3 — Buttons &amp; Interactive Feedback:</strong> Combine HTML elements with a small <code>&lt;script&gt;</code> tag so pages respond when clicked.</p>",
+        code: "<h3>Quick Check</h3>\n<p id=\"status\">Click the button below to mark this topic practiced.</p>\n<button onclick=\"document.getElementById('status').innerText = 'Great job! Topic marked complete.'\">Mark Complete</button>"
+      }
+    };
+
+    function loadLesson(num) {
+      const lesson = lessons[num];
+      if (!lesson) return;
+      document.getElementById("lesson-note").innerHTML = lesson.note;
+      document.getElementById("code-editor").value = lesson.code;
+      runCode();
+    }
+
+    function resetCode() {
+      loadLesson(1);
+    }
+
+    function runCode() {
+      const code = document.getElementById("code-editor").value;
+      const iframe = document.getElementById("preview-frame");
+      iframe.srcdoc = "<!DOCTYPE html><html><body style='font-family: Arial, sans-serif; padding: 12px;'>" + code + "</body></html>";
+    }
+
+    // Run default code on page load
+    runCode();
+  </script>
+
+</body>
+</html>
